@@ -38,7 +38,7 @@ public class BootstrapFilter implements Filter {
             "</h1>",
             "<span class='ml-3'><img src='" + contextPath
             + "/public/images/cricket.png' alt='Zirper Logo' style='height: 60px; width: auto;' /></span>"
-            + "</h1></div><div class='container'>");
+            + "</h1></div><div class='container-fluid'>");
         return result += "</div>";
     }
 

@@ -2,6 +2,8 @@ package ch.fhnw.webfr.sivakumm.zirper.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,11 +47,15 @@ public class ZirperServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.append("<h1>Zirper</h1>");
         for (Zirp zirp : zirps) {
-            writer.append("<div>[" + zirp.getDate().toString() + "]&nbsp;<b>" + zirp.getUsername() + ":</b>&nbsp;<i>" + zirp.getZirp().substring(0, 20));
+            writer.append("<div class='row'>");
+            writer.append("<div class='col'>" + formatDate(zirp.getDate()) + "</div>");
+            writer.append("<div class='col'><b>" + zirp.getUsername() + "</b></div>");
+
+            writer.append("<div class='col'><i>" + zirp.getZirp().substring(0, 20));
             if (zirp.getZirp().length() >= 20) {
                 writer.append("...&nbsp;<a href='" + req.getContextPath() + "/web/" + zirp.getId() + "'>read more</a>");
             }
-            writer.append("</i></div>");
+            writer.append("</i></div></div>");
         }
     }
 
@@ -71,6 +77,12 @@ public class ZirperServlet extends HttpServlet {
     private void showNotFoundPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter writer = resp.getWriter();
         writer.append("<h1>Page not found</h1>");
-        writer.append("<p>The page you were looking for does not exist.</p><p><a href='" + req.getContextPath() + "/web'>Go back to Zirper</a></p>");
+        writer.append("<p>The page you were looking for does not exist.</p><p><a href='" + req.getContextPath()
+                + "/web'>Go back to Zirper</a></p>");
+    }
+
+    private String formatDate(Date date) {
+        DateFormat formatter = DateFormat.getDateTimeInstance();
+        return formatter.format(date);
     }
 }
