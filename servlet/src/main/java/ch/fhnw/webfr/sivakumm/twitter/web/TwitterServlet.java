@@ -64,6 +64,7 @@ public class TwitterServlet extends HttpServlet {
         if (tweet.isEmpty()) {
             writer.append("<h1>Tweet not found</h1>");
         } else {
+            writer.append("<h1>Tweet</h1><br />");
             writer.append("<h3>" + tweet.get().getUsername() + " @ " + tweet.get().getDate() + "</h3>");
             writer.append("<p>" + tweet.get().getTweet() + "</p>");
             writer.append("<br /><a href='" + req.getContextPath() + "'>Back to all Tweets</a>");

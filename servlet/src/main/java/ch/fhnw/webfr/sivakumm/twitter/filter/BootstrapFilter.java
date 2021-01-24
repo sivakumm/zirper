@@ -23,7 +23,13 @@ public class BootstrapFilter implements Filter {
         writer.append("<html><head><title>Twitter on Servlet</title>"
             + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' "
             + "integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' "
-            + "crossorigin='anonymous'></head><body><div class='container'>" + responseWrapper.getContent() + "</div></body></html>");
+            + "crossorigin='anonymous'></head><body><div class='container'>" + decorateH1WithJumbotron(responseWrapper.getContent()) + "</div></body></html>");
+    }
+
+    private String decorateH1WithJumbotron(String html) {
+        String result = html.replaceFirst("<h1", "<div class='jumbotron'><h1");
+        result = result.replaceFirst("</h1>", "</h1></div><div class='container'>");
+        return result += "</div>";
     }
 
     private class ResponseWrapper extends HttpServletResponseWrapper {
