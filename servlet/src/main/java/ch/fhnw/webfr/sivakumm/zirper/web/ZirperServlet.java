@@ -43,7 +43,6 @@ public class ZirperServlet extends HttpServlet {
     private void showOverviewPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<Zirp> zirps = zirpRepository.findAll();
 
-        resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         writer.append("<h1>Zirper</h1>");
         for (Zirp zirp : zirps) {
@@ -59,12 +58,10 @@ public class ZirperServlet extends HttpServlet {
         String[] pathElements = req.getRequestURI().split("/");
         Optional<Zirp> zirp = zirpRepository.findById(Integer.parseInt(pathElements[pathElements.length - 1]));
 
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-
         if (zirp.isEmpty()) {
             showNotFoundPage(req, resp);
         } else {
+            PrintWriter writer = resp.getWriter();
             writer.append("<h1>Zirp</h1>");
             writer.append("<h3>" + zirp.get().getUsername() + " @ " + zirp.get().getDate() + "</h3>");
             writer.append("<p>" + zirp.get().getZirp() + "</p>");
@@ -73,8 +70,6 @@ public class ZirperServlet extends HttpServlet {
     }
 
     private void showNotFoundPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html");
-
         PrintWriter writer = resp.getWriter();
         writer.append("<h1>Page not found</h1>");
         writer.append("<p>The page you were looking for does not exist.</p><p><a href='" + req.getContextPath() + "/web'>Go back to Zirpers</a></p>");
