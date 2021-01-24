@@ -72,6 +72,6 @@ public class ZirperServlet extends HttpServlet {
     private void showNotFoundPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter writer = resp.getWriter();
         writer.append("<h1>Page not found</h1>");
-        writer.append("<p>The page you were looking for does not exist.</p><p><a href='" + req.getContextPath() + "/web'>Go back to Zirpers</a></p>");
+        writer.append("<p>The page you were looking for does not exist.</p><p><a href='" + req.getContextPath() + "/web'>Go back to Zirper</a></p>");
     }
 }
