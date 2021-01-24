@@ -1,14 +1,13 @@
-package ch.fhnw.webfr.sivakumm.twitter.web;
+package ch.fhnw.webfr.sivakumm.zirper.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
-import ch.fhnw.webfr.sivakumm.twitter.domain.Tweet;
-import ch.fhnw.webfr.sivakumm.twitter.persistence.TweetRepository;
-import ch.fhnw.webfr.sivakumm.twitter.util.TweetInitializer;
-
+import ch.fhnw.webfr.sivakumm.zirper.domain.Zirp;
+import ch.fhnw.webfr.sivakumm.zirper.persistence.ZirpRepository;
+import ch.fhnw.webfr.sivakumm.zirper.util.ZirpInitializer;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -16,14 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class TwitterServlet extends HttpServlet {
+public class ZirperServlet extends HttpServlet {
 
-    private TweetRepository tweetRepository;
+    private ZirpRepository zirpRepository;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        tweetRepository = new TweetInitializer().initRepoWithTestData();
+        zirpRepository = new ZirpInitializer().initRepoWithTestData();
     }
 
     @Override
@@ -40,15 +39,15 @@ public class TwitterServlet extends HttpServlet {
     }
 
     private void showOverviewPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        List<Tweet> tweets = tweetRepository.findAll();
+        List<Zirp> zirps = zirpRepository.findAll();
 
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-        writer.append("<h1>Twitter</h1><br />");
-        for (Tweet tweet : tweets) {
-            writer.append("<div>[" + tweet.getDate().toString() + "]&nbsp;<b>" + tweet.getUsername() + ":</b>&nbsp;<i>" + tweet.getTweet().substring(0, 20));
-            if (tweet.getTweet().length() >= 20) {
-                writer.append("...&nbsp;<a href='" + req.getContextPath() + "/" + tweet.getId() + "'>read more</a>");
+        writer.append("<h1>Zirper</h1><br />");
+        for (Zirp zirp : zirps) {
+            writer.append("<div>[" + zirp.getDate().toString() + "]&nbsp;<b>" + zirp.getUsername() + ":</b>&nbsp;<i>" + zirp.getZirp().substring(0, 20));
+            if (zirp.getZirp().length() >= 20) {
+                writer.append("...&nbsp;<a href='" + req.getContextPath() + "/" + zirp.getId() + "'>read more</a>");
             }
             writer.append("</i></div>");
         }
@@ -56,18 +55,18 @@ public class TwitterServlet extends HttpServlet {
 
     private void showDetailedTweetPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] pathElements = req.getRequestURI().split("/");
-        Optional<Tweet> tweet = tweetRepository.findById(Integer.parseInt(pathElements[pathElements.length - 1]));
+        Optional<Zirp> zirp = zirpRepository.findById(Integer.parseInt(pathElements[pathElements.length - 1]));
 
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
-        if (tweet.isEmpty()) {
-            writer.append("<h1>Tweet not found</h1>");
+        if (zirp.isEmpty()) {
+            writer.append("<h1>Zirp not found</h1>");
         } else {
-            writer.append("<h1>Tweet</h1><br />");
-            writer.append("<h3>" + tweet.get().getUsername() + " @ " + tweet.get().getDate() + "</h3>");
-            writer.append("<p>" + tweet.get().getTweet() + "</p>");
-            writer.append("<br /><a href='" + req.getContextPath() + "'>Back to all Tweets</a>");
+            writer.append("<h1>Zirp</h1><br />");
+            writer.append("<h3>" + zirp.get().getUsername() + " @ " + zirp.get().getDate() + "</h3>");
+            writer.append("<p>" + zirp.get().getZirp() + "</p>");
+            writer.append("<br /><a href='" + req.getContextPath() + "'>Back to all Zirps</a>");
         }
     }
 }

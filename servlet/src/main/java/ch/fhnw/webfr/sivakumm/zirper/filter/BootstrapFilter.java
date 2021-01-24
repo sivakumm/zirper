@@ -1,4 +1,4 @@
-package ch.fhnw.webfr.sivakumm.twitter.filter;
+package ch.fhnw.webfr.sivakumm.zirper.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ public class BootstrapFilter implements Filter {
         chain.doFilter(request, responseWrapper);
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
-        writer.append("<html><head><title>Twitter on Servlet</title>"
+        writer.append("<html><head><title>Zirper on Servlet</title>"
             + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' "
             + "integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' "
             + "crossorigin='anonymous'></head><body><div class='container'>" + decorateH1WithJumbotron(responseWrapper.getContent()) + "</div></body></html>");

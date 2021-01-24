@@ -1,16 +1,16 @@
-package ch.fhnw.webfr.sivakumm.twitter.domain;
+package ch.fhnw.webfr.sivakumm.zirper.domain;
 
 import java.util.Date;
 
-public class Tweet {
+public class Zirp {
     private int id;
     private String username;
-    private String tweet;
+    private String zirp;
     private Date date;
 
-    public Tweet(String username, String tweet) {
+    public Zirp(String username, String zirp) {
         this.username = username;
-        this.tweet = tweet;
+        this.zirp = zirp;
         this.date = new Date();
     }
 
@@ -30,12 +30,12 @@ public class Tweet {
         this.username = username;
     }
 
-    public String getTweet() {
-        return tweet;
+    public String getZirp() {
+        return zirp;
     }
 
-    public void setTweet(String tweet) {
-        this.tweet = tweet;
+    public void setZirp(String zirp) {
+        this.zirp = zirp;
     }
 
     public Date getDate() {
