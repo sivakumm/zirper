@@ -33,7 +33,6 @@ gradle-app.setting
 
 ## Ingoring meta & web inf
 *META-INF/
-*WEB-INF/
 
 *.project
 *.settings/
