@@ -31,7 +31,7 @@ public class ZirperServlet extends HttpServlet {
     }
 
     private void dispatchRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (req.getRequestURI().matches(req.getContextPath() + "/web" + "/\\d")) {
+        if (req.getRequestURI().matches(req.getContextPath() + "/web" + "/\\d+$")) {
             showDetailedTweetPage(req, resp);
         } else if (req.getRequestURI().matches(req.getContextPath() + "/web")) {
             showOverviewPage(req, resp);
@@ -63,7 +63,7 @@ public class ZirperServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         if (zirp.isEmpty()) {
-            writer.append("<h1>Zirp not found</h1>");
+            showNotFoundPage(req, resp);
         } else {
             writer.append("<h1>Zirp</h1>");
             writer.append("<h3>" + zirp.get().getUsername() + " @ " + zirp.get().getDate() + "</h3>");
