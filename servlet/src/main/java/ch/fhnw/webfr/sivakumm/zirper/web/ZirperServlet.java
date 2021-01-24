@@ -31,10 +31,12 @@ public class ZirperServlet extends HttpServlet {
     }
 
     private void dispatchRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (req.getRequestURI().matches(req.getContextPath() + "/\\d")) {
+        if (req.getRequestURI().matches(req.getContextPath() + "/web" + "/\\d")) {
             showDetailedTweetPage(req, resp);
-        } else {
+        } else if (req.getRequestURI().matches(req.getContextPath() + "/web")) {
             showOverviewPage(req, resp);
+        } else {
+            showNotFoundPage(req, resp);
         }
     }
 
@@ -47,7 +49,7 @@ public class ZirperServlet extends HttpServlet {
         for (Zirp zirp : zirps) {
             writer.append("<div>[" + zirp.getDate().toString() + "]&nbsp;<b>" + zirp.getUsername() + ":</b>&nbsp;<i>" + zirp.getZirp().substring(0, 20));
             if (zirp.getZirp().length() >= 20) {
-                writer.append("...&nbsp;<a href='" + req.getContextPath() + "/" + zirp.getId() + "'>read more</a>");
+                writer.append("...&nbsp;<a href='" + req.getContextPath() + "/web/" + zirp.getId() + "'>read more</a>");
             }
             writer.append("</i></div>");
         }
@@ -66,7 +68,15 @@ public class ZirperServlet extends HttpServlet {
             writer.append("<h1>Zirp</h1>");
             writer.append("<h3>" + zirp.get().getUsername() + " @ " + zirp.get().getDate() + "</h3>");
             writer.append("<p>" + zirp.get().getZirp() + "</p>");
-            writer.append("<br /><a href='" + req.getContextPath() + "'>Back to all Zirps</a>");
+            writer.append("<br /><a href='" + req.getContextPath() + "/web'>Back to all Zirps</a>");
         }
+    }
+
+    private void showNotFoundPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("text/html");
+
+        PrintWriter writer = resp.getWriter();
+        writer.append("<h1>Page not found</h1>");
+        writer.append("<p>The page you were looking for does not exist.</p><p><a href='" + req.getContextPath() + "/web'>Go back to Zirpers</a></p>");
     }
 }
