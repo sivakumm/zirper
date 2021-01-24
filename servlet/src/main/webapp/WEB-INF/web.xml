@@ -11,7 +11,7 @@
 
     <servlet-mapping>
         <servlet-name>Zirper Servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/web/*</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -21,6 +21,6 @@
 
     <filter-mapping>
         <filter-name>Bootstrap Filter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/web/*</url-pattern>
     </filter-mapping>
 </web-app>

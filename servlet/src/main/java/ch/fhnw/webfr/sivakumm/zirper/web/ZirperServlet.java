@@ -43,7 +43,7 @@ public class ZirperServlet extends HttpServlet {
 
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-        writer.append("<h1>Zirper</h1><br />");
+        writer.append("<h1>Zirper</h1>");
         for (Zirp zirp : zirps) {
             writer.append("<div>[" + zirp.getDate().toString() + "]&nbsp;<b>" + zirp.getUsername() + ":</b>&nbsp;<i>" + zirp.getZirp().substring(0, 20));
             if (zirp.getZirp().length() >= 20) {
@@ -63,7 +63,7 @@ public class ZirperServlet extends HttpServlet {
         if (zirp.isEmpty()) {
             writer.append("<h1>Zirp not found</h1>");
         } else {
-            writer.append("<h1>Zirp</h1><br />");
+            writer.append("<h1>Zirp</h1>");
             writer.append("<h3>" + zirp.get().getUsername() + " @ " + zirp.get().getDate() + "</h3>");
             writer.append("<p>" + zirp.get().getZirp() + "</p>");
             writer.append("<br /><a href='" + req.getContextPath() + "'>Back to all Zirps</a>");

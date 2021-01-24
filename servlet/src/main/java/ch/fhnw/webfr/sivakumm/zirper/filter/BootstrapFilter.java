@@ -21,14 +21,16 @@ public class BootstrapFilter implements Filter {
         response.setContentType("text/html");
         PrintWriter writer = response.getWriter();
         writer.append("<html><head><title>Zirper on Servlet</title>"
+            + "<link href='" + request.getServletContext().getContextPath() + "/public/images/favicon/16x16.png' rel='icon' sizes='16x16' type='image/png'/>"
+            + "<link href='" + request.getServletContext().getContextPath() + "/public/images/favicon/32x32.png' rel='icon' sizes='32x32' type='image/png'/>"
             + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' "
             + "integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' "
-            + "crossorigin='anonymous'></head><body><div class='container'>" + decorateH1WithJumbotron(responseWrapper.getContent()) + "</div></body></html>");
+            + "crossorigin='anonymous'></head><body><div class='container'>" + decorateH1WithJumbotron(responseWrapper.getContent(), request.getServletContext().getContextPath()) + "</div></body></html>");
     }
 
-    private String decorateH1WithJumbotron(String html) {
+    private String decorateH1WithJumbotron(String html, String contextPath) {
         String result = html.replaceFirst("<h1", "<div class='jumbotron'><h1");
-        result = result.replaceFirst("</h1>", "</h1></div><div class='container'>");
+        result = result.replaceFirst("</h1>", "<span class='ml-3'><img src='" + contextPath + "/public/images/cricket.png' alt='Zirper Logo' style='height: 60px; width: auto;' /></span></h1></div><div class='container'>");
         return result += "</div>";
     }
 
