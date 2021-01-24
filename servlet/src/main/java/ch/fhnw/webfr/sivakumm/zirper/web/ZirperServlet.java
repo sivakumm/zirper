@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import ch.fhnw.webfr.sivakumm.zirper.domain.Zirp;
 import ch.fhnw.webfr.sivakumm.zirper.persistence.ZirpRepository;
-import ch.fhnw.webfr.sivakumm.zirper.util.ZirpInitializer;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +21,7 @@ public class ZirperServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        zirpRepository = new ZirpInitializer().initRepoWithTestData();
+        zirpRepository = (ZirpRepository) config.getServletContext().getAttribute("repo");
     }
 
     @Override
