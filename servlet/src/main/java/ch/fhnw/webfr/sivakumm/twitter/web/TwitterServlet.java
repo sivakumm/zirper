@@ -33,7 +33,11 @@ public class TwitterServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.append("<html><head><title>Twitter</title></head><body><h1>Twitter</h1><br />");
         for (Tweet tweet : tweets) {
-            writer.append("<div>[" + tweet.getDate().toString() + "]&nbsp;<b>" + tweet.getUsername() + ":</b>&nbsp;<i>" + tweet.getTweet() + "</i></div>");
+            writer.append("<div>[" + tweet.getDate().toString() + "]&nbsp;<b>" + tweet.getUsername() + ":</b>&nbsp;<i>" + tweet.getTweet().substring(0, 20));
+            if (tweet.getTweet().length() >= 20) {
+                writer.append("...&nbsp;<a href='" + req.getContextPath() + "/" + tweet.getId() + "'>read more</a>");
+            }
+            writer.append("</i></div>");
         }
         writer.append("</body></html>");
     }
