@@ -1,6 +1,7 @@
 package ch.fhnw.webfr.sivakumm.zirper.domain;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.validation.constraints.Size;
 
@@ -55,5 +56,21 @@ public class Zirp {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Zirp compare = (Zirp) o;
+        return Objects.equals(id, compare.id)
+                && Objects.equals(username, compare.username)
+                && Objects.equals(zirp, compare.zirp)
+                && Objects.equals(date, compare.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, zirp, date);
     }
 }
