@@ -17,13 +17,13 @@
                     <div class="card-body form-group">
                         <textarea class="form-control" name="zirp" placeholder="share your thoughts..." th:field="*{zirp}"></textarea>
                     </div>
-                    <div class="card-footer form-group">
+                    <div class="card-footer form-group" style="margin: 0;">
                         <button class="btn btn-success btn-block" type="submit">Zirp</button>
                     </div>
                 </form>
             </div>
             <hr />
-            <div class="card my-2 w-50" th:each="zirp : ${zirps}">
+            <div class="card my-2 mx-auto" style="max-width: 800px;" th:each="zirp : ${zirps}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="'@' + ${zirp.username}">Fake user</h5>
                     <p class="card-text font-italic" th:text="${zirp.zirp}">Fake zirp</p>

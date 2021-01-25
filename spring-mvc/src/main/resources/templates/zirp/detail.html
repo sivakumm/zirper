@@ -4,7 +4,7 @@
 <body>
     <section>
         <div class="container">
-            <div class="card my-2 w-50" th:object="${zirp}">
+            <div class="card my-2 mx-auto" style="max-width: 800px" th:object="${zirp}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="'@' + *{username}">Fake user</h5>
                     <p class="card-text font-italic" th:text="*{zirp}">Fake zirp</p>
