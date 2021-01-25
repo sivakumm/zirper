@@ -4,6 +4,8 @@
 <body>
     <section>
         <div class="container">
+            <h3 th:text="'Zirps of @' + ${zirps[0].username}">Fake title</h3>
+            <hr />
             <div class="card my-2 mx-auto" style="max-width: 800px;" th:each="zirp : ${zirps}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="'@' + ${zirp.username}">Fake user</h5>
