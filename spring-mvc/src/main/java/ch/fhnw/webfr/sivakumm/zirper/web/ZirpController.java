@@ -1,6 +1,7 @@
 package ch.fhnw.webfr.sivakumm.zirper.web;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -90,5 +91,16 @@ public class ZirpController {
 
         zirpRepository.deleteById(id);
         return "redirect:/zirps";
+    }
+
+    @RequestMapping(value = "users/{username}", method = RequestMethod.GET)
+    public String findByUsername(@PathVariable String username, Model model) {
+        List<Zirp> zirps = zirpRepository.findByUsername(username);
+        if (zirps.size() <= 0) {
+            return "404";
+        }
+
+        model.addAttribute("zirps", zirps);
+        return "zirp/user";
     }
 }

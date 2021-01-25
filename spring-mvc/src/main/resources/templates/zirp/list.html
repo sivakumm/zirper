@@ -25,7 +25,7 @@
             <hr />
             <div class="card my-2 mx-auto" style="max-width: 800px;" th:each="zirp : ${zirps}">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="'@' + ${zirp.username}">Fake user</h5>
+                    <a th:href="@{/zirps} + '/users/' + ${zirp.username}" style="text-decoration: none;"><h5 class="card-title" th:text="'@' + ${zirp.username}">Fake user</h5></a>
                     <p class="card-text font-italic" th:text="${zirp.zirp}">Fake zirp</p>
                     <a class="card-link" th:href="@{/zirps} + '/' + ${zirp.id}">Read more</a>
                     <footer class="blockquote-footer text-right">
