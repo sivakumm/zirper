@@ -5,17 +5,17 @@
     <section>
         <div class="container">
             <div class="card">
-                <form>
+                <form th:action="@{/zirps}" method="POST" th:object="${newZirp}">
                     <div class="card-header form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">@</div>
                             </div>
-                            <input class="form-control" type="text" placeholder="Username" />
+                            <input class="form-control" name="username" type="text" placeholder="Username" th:field="*{username}" />
                         </div>
                     </div>
                     <div class="card-body form-group">
-                        <textarea class="form-control" type="text" placeholder="share your thoughts..." ></textarea>
+                        <textarea class="form-control" name="zirp" placeholder="share your thoughts..." th:field="*{zirp}"></textarea>
                     </div>
                     <div class="card-footer form-group">
                         <button class="btn btn-success btn-block" type="submit">Zirp</button>

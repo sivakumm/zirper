@@ -1,5 +1,6 @@
 package ch.fhnw.webfr.sivakumm.zirper.web;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class ZirpController {
     @RequestMapping(method = RequestMethod.GET)
     public String findAll(Model model) {
         model.addAttribute("zirps", zirpRepository.findAll());
+        model.addAttribute("newZirp", new Zirp());
         return "zirp/list";
     }
 
@@ -35,5 +37,12 @@ public class ZirpController {
 
         model.addAttribute("zirp", zirp.get());
         return "zirp/detail";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String createZirp(Zirp zirp) {
+        zirp.setDate(new Date());
+        zirpRepository.save(zirp);
+        return "redirect:/zirps";
     }
 }
