@@ -62,11 +62,8 @@ public class Zirp {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Zirp compare = (Zirp) o;
-        return Objects.equals(id, compare.id)
-                && Objects.equals(username, compare.username)
-                && Objects.equals(zirp, compare.zirp)
-                && Objects.equals(date, compare.date);
+        Zirp other = (Zirp) o;
+        return id.equals(other.id) && username.equals(other.username) && zirp.equals(other.zirp) && date.equals(other.date);
     }
 
     @Override
