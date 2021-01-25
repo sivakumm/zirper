@@ -2,6 +2,8 @@ package ch.fhnw.webfr.sivakumm.zirper.domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,8 +13,12 @@ public class Zirp {
     @Id
     private String id;
 
+    @Size(min = 3, max = 15)
     private String username;
+
+    @Size(min = 1, max = 280)
     private String zirp;
+    
     private Date date;
 
     public Zirp() {
