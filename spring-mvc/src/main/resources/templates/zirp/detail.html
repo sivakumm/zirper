@@ -8,6 +8,10 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="'@' + *{username}">Fake user</h5>
                     <p class="card-text font-italic" th:text="*{zirp}">Fake zirp</p>
+                    <a class="btn btn-primary my-1" th:href="@{/zirps} + '/' + ${zirp.id} + '?update'">Edit</a>
+                    <form style="all: unset;">
+                        <button class="btn btn-danger my-1">Remove</button>
+                    </form>
                     <blockquote>
                         <footer class="blockquote-footer text-right">
                             <small th:text="*{#dates.format(date, 'dd.MM.yyyy HH:mm')}">Fake Date</small>

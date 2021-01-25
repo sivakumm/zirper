@@ -48,4 +48,17 @@ public class ZirpController {
         zirpRepository.save(zirp);
         return "redirect:/zirps";
     }
+
+    @RequestMapping(value = "/{id}", params = "update", method = RequestMethod.GET)
+    public String getUpdatePage(@PathVariable String id, Model model) {
+        model.addAttribute("zirp", zirpRepository.findById(id).get());
+        return "zirp/edit";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String updateZirp(@PathVariable String id, Zirp zirp) {
+        zirp.setId(id);
+        zirpRepository.save(zirp);
+        return "redirect:/zirps/" + id;
+    }
 }
