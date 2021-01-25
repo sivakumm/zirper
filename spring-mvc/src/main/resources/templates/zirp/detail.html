@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: maincontent(~{:: section})}">
+<head></head>
+<body>
+    <section>
+        <div class="container">
+            <div class="card my-2 w-50" th:object="${zirp}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'@' + *{username}">Fake user</h5>
+                    <p class="card-text font-italic" th:text="*{zirp}">Fake zirp</p>
+                    <blockquote>
+                        <footer class="blockquote-footer text-right">
+                            <small th:text="*{#dates.format(date, 'dd.MM.yyyy HH:mm')}">Fake Date</small>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="my-3">
+                <a th:href="@{/zirps}">Go back to all Zirps</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
