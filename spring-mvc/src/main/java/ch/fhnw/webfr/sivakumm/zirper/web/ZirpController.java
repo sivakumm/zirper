@@ -61,4 +61,10 @@ public class ZirpController {
         zirpRepository.save(zirp);
         return "redirect:/zirps/" + id;
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteZirp(@PathVariable String id) {
+        zirpRepository.deleteById(id);
+        return "redirect:/zirps";
+    }
 }
