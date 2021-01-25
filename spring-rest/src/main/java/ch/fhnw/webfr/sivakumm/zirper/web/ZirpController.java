@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,14 +46,22 @@ public class ZirpController {
     }
 
     @PostMapping
-    public ResponseEntity<Zirp> createZirp(@RequestBody Zirp zirp) {
+    public ResponseEntity<Zirp> createZirp(@Valid @RequestBody Zirp zirp, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+        }
+
         zirp.setDate(new Date());
         Zirp saved = zirpRepository.save(zirp);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Zirp> updateZirp(@PathVariable String id, @RequestBody Zirp zirp) {
+    public ResponseEntity<Zirp> updateZirp(@PathVariable String id, @Valid @RequestBody Zirp zirp, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+        }
+
         Optional<Zirp> original = zirpRepository.findById(id);
         if (original.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
