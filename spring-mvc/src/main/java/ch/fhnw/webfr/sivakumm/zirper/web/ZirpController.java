@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,8 @@ public class ZirpController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String findAll(Model model) {
-        model.addAttribute("zirps", zirpRepository.findAll());
+        Sort sort = Sort.by(Direction.DESC, "date");
+        model.addAttribute("zirps", zirpRepository.findAll(sort));
         model.addAttribute("newZirp", new Zirp());
         return "zirp/list";
     }
