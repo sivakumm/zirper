@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: maincontent(~{:: section})}">
+<head></head>
+<body>
+    <section>
+        <div class="container">
+            <hr />
+            <div class="row" th:each="zirp : ${zirps}">
+                <div class="col" th:text="${zirp.date}">Fake date</div>
+                <div class="col" th:text="${zirp.username}">Fake user</div>
+                <div class="col" th:text="${zirp.zirp}">Fake zirp</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
