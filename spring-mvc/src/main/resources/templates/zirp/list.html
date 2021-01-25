@@ -4,6 +4,24 @@
 <body>
     <section>
         <div class="container">
+            <div class="card">
+                <form>
+                    <div class="card-header form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input class="form-control" type="text" placeholder="Username" />
+                        </div>
+                    </div>
+                    <div class="card-body form-group">
+                        <textarea class="form-control" type="text" placeholder="share your thoughts..." ></textarea>
+                    </div>
+                    <div class="card-footer form-group">
+                        <button class="btn btn-success btn-block" type="submit">Zirp</button>
+                    </div>
+                </form>
+            </div>
             <hr />
             <div class="card my-2 w-50" th:each="zirp : ${zirps}">
                 <div class="card-body">
