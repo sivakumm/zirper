@@ -28,11 +28,9 @@
                     <h5 class="card-title" th:text="'@' + ${zirp.username}">Fake user</h5>
                     <p class="card-text font-italic" th:text="${zirp.zirp}">Fake zirp</p>
                     <a class="card-link" th:href="@{/zirps} + '/' + ${zirp.id}">Read more</a>
-                    <blockquote>
-                        <footer class="blockquote-footer text-right">
-                            <small th:text="${#dates.format(zirp.date, 'dd.MM.yyyy HH:mm')}">Fake Date</small>
-                        </footer>
-                    </blockquote>
+                    <footer class="blockquote-footer text-right">
+                        <small th:text="${#dates.format(zirp.date, 'dd.MM.yyyy HH:mm')}">Fake Date</small>
+                    </footer>
                 </div>
             </div>
         </div>
