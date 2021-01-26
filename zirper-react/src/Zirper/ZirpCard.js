@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, CardBody, CardText, CardTitle, Col, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardText, CardTitle, Col, Row, UncontrolledTooltip } from 'reactstrap';
 
 const ZirpCard = ({ zirp }) => {
 	return (
@@ -7,14 +7,16 @@ const ZirpCard = ({ zirp }) => {
 			<CardBody>
 				<CardTitle>
 					<Row>
-						<Col>@{ zirp.username }</Col>
+						<Col><h5 className="font-weight-bold">@{ zirp.username }</h5></Col>
 						<Col className="text-right">
-							<Button className="mx-3" color="primary" size="sm"><i class="fas fa-pen"></i></Button>
-							<Button color="danger" size="sm"><i class="fas fa-trash"></i></Button>
+							<Button className="mx-3" color="primary" size="sm" id={ zirp.id + 'EditBtn' }><i class="fas fa-pen"></i></Button>
+							<UncontrolledTooltip placement="top" target={ zirp.id + 'EditBtn' }>Edit</UncontrolledTooltip>
+							<Button color="danger" size="sm" id={ zirp.id + 'RemoveBtn' }><i class="fas fa-trash"></i></Button>
+							<UncontrolledTooltip placement="top" target={ zirp.id + 'RemoveBtn' }>Remove</UncontrolledTooltip>
 						</Col>
 					</Row>
 				</CardTitle>
-				<CardText><p>{ zirp.zirp }</p></CardText>
+				<CardText><p><i>{ zirp.zirp }</i></p></CardText>
 				<footer className="blockquote-footer text-right">
 					<small>{ new Date(zirp.date).toLocaleString() }</small>
 				</footer>
