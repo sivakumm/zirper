@@ -1,11 +1,14 @@
 import React from 'react';
-import { Col, Spinner } from 'reactstrap';
+import { Col } from 'reactstrap';
 
 const Loading = () => {
     return (
-        <Col className="text-center">
-            <Spinner color="success" style={{ width: '5rem', height: '5rem' }} />
-        </Col>
+        <div>
+            <Col className="text-center">
+                <img src={ process.env.PUBLIC_URL + '/images/loading.gif' } alt="loading screen" />
+                <h2 className="text-success">Source is loading</h2>
+            </Col>
+        </div>
     );
 };
 
