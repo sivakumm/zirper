@@ -17,6 +17,11 @@ const ZirpContainer = ({ defaultZirps }) => {
 		setZirps(_.orderBy(_.concat(zirps, zirp), ['date'], ['desc']));
 	};
 
+	const updateZirp = (zirp) => {
+		if (zirp.username.charAt(0) !== '@') { zirp.username = '@' + zirp.username; }
+		setZirps(_.map(zirps, z => z.id === zirp.id ? zirp : z));
+	}
+
 	const deleteZirp = (zirpId) => {
 		setZirps(_.reject(zirps, { id: zirpId}));
 	};
@@ -25,7 +30,7 @@ const ZirpContainer = ({ defaultZirps }) => {
 		<div>
 			<ZirpCreateForm createFn={ createZirp } ></ZirpCreateForm>
 			<hr />
-			<ZirpCardList zirps={ zirps } deleteFn={ deleteZirp } ></ZirpCardList>
+			<ZirpCardList zirps={ zirps } deleteFn={ deleteZirp } updateFn={ updateZirp }></ZirpCardList>
 		</div>
 	);
 };
