@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ public class ZirpController {
     @Autowired
     private ZirpRepository zirpRepository;
 
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public String findAll(Model model) {
         Sort sort = Sort.by(Direction.DESC, "date");
@@ -34,6 +36,7 @@ public class ZirpController {
         return "zirp/list";
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String findById(@PathVariable String id, Model model) {
         Optional<Zirp> zirp = zirpRepository.findById(id);
@@ -46,6 +49,7 @@ public class ZirpController {
         return "zirp/detail";
     }
 
+    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     public String createZirp(Model model, @Valid Zirp zirp, BindingResult result) {
         if (result.hasErrors()) {
@@ -56,6 +60,7 @@ public class ZirpController {
         return "redirect:/zirps";
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", params = "update", method = RequestMethod.GET)
     public String getUpdatePage(@PathVariable String id, Model model) {
         Optional<Zirp> zirp = zirpRepository.findById(id);
@@ -67,6 +72,7 @@ public class ZirpController {
         return "zirp/edit";
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateZirp(@PathVariable String id, @Valid Zirp zirp, BindingResult result) {
         if (result.hasErrors()) {
@@ -83,6 +89,7 @@ public class ZirpController {
         return "redirect:/zirps/" + id;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteZirp(@PathVariable String id) {
         if (zirpRepository.findById(id).isEmpty()) {
@@ -93,6 +100,7 @@ public class ZirpController {
         return "redirect:/zirps";
     }
 
+    @CrossOrigin
     @RequestMapping(value = "users/{username}", method = RequestMethod.GET)
     public String findByUsername(@PathVariable String username, Model model) {
         List<Zirp> zirps = zirpRepository.findByUsername(username);
