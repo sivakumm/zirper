@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Footer from './Footer';
-import Header from './Header';
+import Footer from './Util/Footer';
+import Header from './Util/Header';
+import Loading from './Util/Loading';
 import ZirpContainer from './Zirper/ZirpContainer';
 
 const App = () => {
@@ -15,7 +16,7 @@ const App = () => {
   }, []);
 
   const renderZirpContainer = (config) => {
-    return config ? <ZirpContainer serverUrl={ config.url } ></ZirpContainer> : null;
+    return config ? <ZirpContainer serverUrl={ config.url } ></ZirpContainer> : <Loading></Loading>;
   };
 
   return (
