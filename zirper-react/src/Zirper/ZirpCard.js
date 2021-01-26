@@ -9,14 +9,14 @@ const ZirpCard = ({ zirp }) => {
 					<Row>
 						<Col><h5 className="font-weight-bold">@{ zirp.username }</h5></Col>
 						<Col className="text-right">
-							<Button className="mx-3" color="primary" size="sm" id={ zirp.id + 'EditBtn' }><i class="fas fa-pen"></i></Button>
-							<UncontrolledTooltip placement="top" target={ zirp.id + 'EditBtn' }>Edit</UncontrolledTooltip>
-							<Button color="danger" size="sm" id={ zirp.id + 'RemoveBtn' }><i class="fas fa-trash"></i></Button>
-							<UncontrolledTooltip placement="top" target={ zirp.id + 'RemoveBtn' }>Remove</UncontrolledTooltip>
+							<Button className="mx-3" color="primary" size="sm" id={ 'editBtn' + zirp.id }><i className="fas fa-pen"></i></Button>
+							<UncontrolledTooltip placement="top" target={ 'editBtn' + zirp.id }>Edit</UncontrolledTooltip>
+							<Button color="danger" size="sm" id={ 'removeBtn' + zirp.id }><i className="fas fa-trash"></i></Button>
+							<UncontrolledTooltip placement="top" target={ 'removeBtn' + zirp.id }>Remove</UncontrolledTooltip>
 						</Col>
 					</Row>
 				</CardTitle>
-				<CardText><p><i>{ zirp.zirp }</i></p></CardText>
+				<CardText><i>{ zirp.zirp }</i></CardText>
 				<footer className="blockquote-footer text-right">
 					<small>{ new Date(zirp.date).toLocaleString() }</small>
 				</footer>

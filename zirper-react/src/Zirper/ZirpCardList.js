@@ -4,7 +4,7 @@ import ZirpCard from './ZirpCard';
 const ZirpCardList = ({ zirps }) => {
 	return (
 		<div>
-			{ zirps.map(zirp => <ZirpCard zirp={ zirp }></ZirpCard>) }
+			{ zirps.map(zirp => <ZirpCard key={ zirp.id } zirp={ zirp }></ZirpCard>) }
 		</div>
 	);
 };

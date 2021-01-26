@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, CardBody, CardFooter, CardHeader, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
-const ZirpCreateForm = () => {
+const ZirpCreateForm = ({ createFn }) => {
+
+	const [zirp, setZirp] = useState({ username: '', zirp: '' });
+
+	const changeZirp = (changed) => {
+		setZirp({ ...zirp, [changed.target.name]: changed.target.value });
+	};
+
+	const onSubmit = () => {
+		createFn(zirp);
+		// setZirp({ username: '', zirp: '' });
+	};
+
 	return (
 		<Card>
 			<form>
@@ -10,14 +22,14 @@ const ZirpCreateForm = () => {
 						<InputGroupAddon addonType="prepend">
 							<InputGroupText>@</InputGroupText>
 						</InputGroupAddon>
-						<Input placeholder="username" />
+						<Input name="username" placeholder="username" value={ zirp.username } onChange={ changeZirp } />
 					</InputGroup>
 				</CardHeader>
 				<CardBody>
-					<Input type="textarea" placeholder="share your thoughts..." />
+					<Input type="textarea" name="zirp" placeholder="share your thoughts..." value={ zirp.zirp } onChange={ changeZirp } />
 				</CardBody>
 				<CardFooter>
-					<Button color="success" block type="submit">Zirp</Button>
+					<Button color="success" block onClick={ onSubmit }>Zirp</Button>
 				</CardFooter>
 			</form>
 		</Card>
