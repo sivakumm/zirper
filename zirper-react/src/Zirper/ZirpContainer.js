@@ -17,11 +17,15 @@ const ZirpContainer = ({ defaultZirps }) => {
 		setZirps(_.orderBy(_.concat(zirps, zirp), ['date'], ['desc']));
 	};
 
+	const deleteZirp = (zirpId) => {
+		setZirps(_.reject(zirps, { id: zirpId}));
+	};
+
 	return (
 		<div>
 			<ZirpCreateForm createFn={ createZirp } ></ZirpCreateForm>
 			<hr />
-			<ZirpCardList zirps={ zirps } ></ZirpCardList>
+			<ZirpCardList zirps={ zirps } deleteFn={ deleteZirp } ></ZirpCardList>
 		</div>
 	);
 };
