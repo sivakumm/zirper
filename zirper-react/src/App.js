@@ -1,13 +1,15 @@
 import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
+import ZirpCreateForm from './Zirper/ZirpCreateForm';
 
 class App extends React.Component {
   render() {
     return (
     <div className="container">
       <Header></Header>
-      <h1>Hello World!</h1>
+      <ZirpCreateForm></ZirpCreateForm>
+      <hr />
       <Footer></Footer>
     </div>
     );
