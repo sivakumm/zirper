@@ -60,7 +60,3 @@ const ZirpContainer = ({ serverUrl }) => {
 };
 
 export default ZirpContainer;
-
-ZirpContainer.defaultProps = {
-  serverUrl: 'http://localhost:8080/zirper-rest'
-};
