@@ -16,7 +16,6 @@ const App = () => {
   }, []);
 
   const renderZirpContainer = (config) => {
-    return <Loading></Loading>;
     return config ? <ZirpContainer serverUrl={ config.url } ></ZirpContainer> : <Loading></Loading>;
   };
 
