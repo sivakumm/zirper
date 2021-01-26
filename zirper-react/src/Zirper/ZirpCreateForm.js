@@ -11,7 +11,7 @@ const ZirpCreateForm = ({ createFn }) => {
 
 	const onSubmit = () => {
 		createFn(zirp);
-		// setZirp({ username: '', zirp: '' });
+		setZirp({ username: '', zirp: '' });
 	};
 
 	return (
