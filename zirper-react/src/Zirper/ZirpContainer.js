@@ -3,9 +3,9 @@ import ZirpCardList from './ZirpCardList';
 import ZirpCreateForm from './ZirpCreateForm';
 import _ from 'lodash';
 
-const ZirpContainer = ({ defaultZirps, serverUrl }) => {
+const ZirpContainer = ({ serverUrl }) => {
 
-	const [zirps, setZirps] = useState(defaultZirps);
+	const [zirps, setZirps] = useState([]);
 
 	useEffect(() => readAll(), []);
 
