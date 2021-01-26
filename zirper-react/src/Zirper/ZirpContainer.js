@@ -3,27 +3,51 @@ import ZirpCardList from './ZirpCardList';
 import ZirpCreateForm from './ZirpCreateForm';
 import _ from 'lodash';
 
-const ZirpContainer = ({ defaultZirps }) => {
+const ZirpContainer = ({ defaultZirps, serverUrl }) => {
 
 	const [zirps, setZirps] = useState(defaultZirps);
 
-	useEffect(() => {
-		setZirps(_.orderBy(defaultZirps, ['date'], ['desc']));
-	}, [defaultZirps]);
+	useEffect(() => readAll(), []);
+
+	const readAll = () => {
+		fetch(`${serverUrl}/zirps`)
+			.then(response => response.json())
+			.then(json => setZirps(_.orderBy(json, ['date'], ['desc'])));
+	}
 
 	const createZirp = (zirp) => {
-		zirp.id = 'xyz' + _.size(zirps) + 1;
-		zirp.date = new Date().toISOString();
-		setZirps(_.orderBy(_.concat(zirps, zirp), ['date'], ['desc']));
+		fetch(`${serverUrl}/zirps`, {
+			method: 'POST',
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			}),
+			body: JSON.stringify(zirp)
+		})
+		.then(response => response.json())
+		.then(saved => setZirps(_.orderBy(_.concat(zirps, saved), ['date'], ['desc'])));
 	};
 
 	const updateZirp = (zirp) => {
-		if (zirp.username.charAt(0) !== '@') { zirp.username = '@' + zirp.username; }
-		setZirps(_.map(zirps, z => z.id === zirp.id ? zirp : z));
+		fetch(`${serverUrl}/zirps/${zirp.id}`, {
+			method: 'PUT',
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			}),
+			body: JSON.stringify(zirp)
+		})
+		.then(response => response.json())
+		.then(updated => setZirps(_.map(zirps, z => z.id === zirp.id ? updated : z)));
 	}
 
 	const deleteZirp = (zirpId) => {
-		setZirps(_.reject(zirps, { id: zirpId}));
+		fetch(`${serverUrl}/zirps/${zirpId}`, {
+			method: 'DELETE'
+		})
+		.then(response => {
+			if (response.ok) {
+				setZirps(_.reject(zirps, { id: zirpId}))
+			}
+		});
 	};
 
 	return (
@@ -38,10 +62,5 @@ const ZirpContainer = ({ defaultZirps }) => {
 export default ZirpContainer;
 
 ZirpContainer.defaultProps = {
-  defaultZirps: [
-    { id: 'xyz0', username: 'defaultUser0', zirp: 'Message to share with the world!', date: '2021-01-25T08:51:41.217Z' },
-    { id: 'xyz1', username: 'defaultUser0', zirp: 'Message to share with the world!', date: '2021-01-25T09:51:41.217Z' },
-    { id: 'xyz2', username: 'defaultUser1', zirp: 'Message to share with the world!', date: '2021-01-25T10:51:41.217Z' },
-    { id: 'xyz3', username: 'defaultUser1', zirp: 'Message to share with the world!', date: '2021-01-25T11:51:41.217Z' },
-  ]
+  serverUrl: 'http://localhost:8080/zirper-rest'
 };
