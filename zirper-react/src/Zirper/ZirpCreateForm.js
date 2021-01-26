@@ -14,6 +14,10 @@ const ZirpCreateForm = ({ createFn }) => {
 		setZirp({ username: '', zirp: '' });
 	};
 
+	const validForm = () => {
+		return zirp.username.length > 2 && zirp.username.length < 16 && zirp.zirp.length > 0;
+	}
+
 	return (
 		<Card>
 			<form>
@@ -29,7 +33,7 @@ const ZirpCreateForm = ({ createFn }) => {
 					<Input type="textarea" name="zirp" placeholder="share your thoughts..." value={ zirp.zirp } onChange={ changeZirp } />
 				</CardBody>
 				<CardFooter>
-					<Button color="success" block onClick={ onSubmit }>Zirp</Button>
+					<Button color="success" block onClick={ onSubmit } disabled={ !validForm() }>Zirp</Button>
 				</CardFooter>
 			</form>
 		</Card>
