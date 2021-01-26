@@ -7,7 +7,6 @@ const ZirpCard = ({ zirp }) => {
 			<CardBody>
 				<CardTitle>@{ zirp.username }</CardTitle>
 				<CardText><p>{ zirp.zirp }</p></CardText>
-				<a href="/">Read more</a>
 				<footer className="blockquote-footer text-right">
 					<small>{ new Date(zirp.date).toLocaleString() }</small>
 				</footer>
