@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Zirp = require('./domain/zirp');
 const log4js = require('log4js');
 const config = require('dotenv-extended').load({
     schema: '.env.schema',
@@ -15,7 +16,14 @@ mongoose.connect(`mongodb://${config.MONGO_HOST}/${config.MONGO_DATABASE}`, { us
 
 const app = express();
 
-
+app.get('/', (req, res) => {
+    Zirp.find((err, zirps) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.send(zirps);
+    });
+});
 
 app.listen(config.PORT, () => {
     logger.info(`Server started on Port ${config.PORT}`);
