@@ -18,15 +18,6 @@ mongoose.connect(`mongodb://${config.MONGO_HOST}/${config.MONGO_DATABASE}`, { us
 const app = express();
 app.use('/zirper-express', dispatcher);
 
-app.get('/', (req, res) => {
-    Zirp.find((err, zirps) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.send(zirps);
-    });
-});
-
 app.listen(config.PORT, () => {
     logger.info(`Server started on Port ${config.PORT}`);
 });
