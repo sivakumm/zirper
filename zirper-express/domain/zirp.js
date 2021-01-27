@@ -14,7 +14,7 @@ const zirpSchema = new Schema(
             maxlength: 280
         },
         date: {
-            type: Date
+            type: String
         }
     },
     {
