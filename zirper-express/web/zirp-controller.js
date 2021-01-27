@@ -44,6 +44,8 @@ exports.update = (req, res) => {
         if (err) {
             res.status(404).send('Zirp not found');
         } else {
+            zirp.username = req.body.username;
+            zirp.zirp = req.body.zirp;
             zirp.save((err, updatedZirp) => {
                 if (err) {
                     res.status(412).send('Precondition failed');
