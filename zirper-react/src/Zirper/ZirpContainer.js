@@ -12,7 +12,7 @@ const ZirpContainer = ({ serverUrl }) => {
 	const readAll = () => {
 		fetch(`${serverUrl}/zirps`)
 			.then(response => response.json())
-			.then(json => setZirps(_.orderBy(json, ['date'], ['desc'])));
+			.then(json => setZirps(sortZirps(json)));
 	}
 
 	const createZirp = (zirp) => {
@@ -24,7 +24,7 @@ const ZirpContainer = ({ serverUrl }) => {
 			body: JSON.stringify(zirp)
 		})
 		.then(response => response.json())
-		.then(saved => setZirps(_.orderBy(_.concat(zirps, saved), ['date'], ['desc'])));
+		.then(saved => setZirps(sortZirps(saved)));
 	};
 
 	const updateZirp = (zirp) => {
@@ -49,6 +49,10 @@ const ZirpContainer = ({ serverUrl }) => {
 			}
 		});
 	};
+
+	const sortZirps = (zirpList) => {
+		return _.sortBy(zirpList, (zirp) => new Date(zirp.date)).reverse();
+	}
 
 	return (
 		<div>
