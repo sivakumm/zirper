@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const dispatcher = require('./web/dispatcher');
 const mongoose = require('mongoose');
 const Zirp = require('./domain/zirp');
@@ -17,6 +18,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${config.MONGO_HOST}/${config.MONGO_DATABASE}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/zirper-express', dispatcher);
 
