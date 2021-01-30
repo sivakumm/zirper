@@ -24,7 +24,7 @@ const ZirpContainer = ({ serverUrl }) => {
 			body: JSON.stringify(zirp)
 		})
 		.then(response => response.json())
-		.then(saved => setZirps(sortZirps(saved)));
+		.then(saved => setZirps(sortZirps(_.concat(zirps, saved))));
 	};
 
 	const updateZirp = (zirp) => {
