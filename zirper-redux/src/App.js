@@ -22,7 +22,7 @@ const App = () => {
   useEffect(readConfig, [dispatch]);
 
   const renderZirpContainer = (url) => {
-    return url ? <ZirpContainer serverUrl={ url } ></ZirpContainer> : <Loading></Loading>;
+    return url ? <ZirpContainer /> : <Loading></Loading>;
   };
 
   return (

@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ZirpCardList from './ZirpCardList';
 import ZirpCreateForm from './ZirpCreateForm';
 import _ from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ZirpContainer = ({ serverUrl }) => {
+const ZirpContainer = () => {
 
-	const [zirps, setZirps] = useState([]);
+	const serverUrl = useSelector(state => state.url, _.isEqual);
+	const zirps = useSelector(state => state.zirps, _.isEqual);
 
-	useEffect(() => readAll(), []);
+	const dispatch = useDispatch();
 
 	const readAll = () => {
 		fetch(`${serverUrl}/zirps`)
 			.then(response => response.json())
-			.then(json => setZirps(sortZirps(json)));
+			.then(json => dispatch({ type: 'ZIRPS', value: sortZirps(json) }));
 	}
+
+	useEffect(readAll, [serverUrl, dispatch]);
 
 	const createZirp = (zirp) => {
 		fetch(`${serverUrl}/zirps`, {
@@ -24,7 +28,7 @@ const ZirpContainer = ({ serverUrl }) => {
 			body: JSON.stringify(zirp)
 		})
 		.then(response => response.json())
-		.then(saved => setZirps(sortZirps(_.concat(zirps, saved))));
+		.then(saved => dispatch({ type: 'ZIRPS', value: sortZirps(_.concat(zirps, saved)) }));
 	};
 
 	const updateZirp = (zirp) => {
@@ -36,7 +40,7 @@ const ZirpContainer = ({ serverUrl }) => {
 			body: JSON.stringify(zirp)
 		})
 		.then(response => response.json())
-		.then(updated => setZirps(_.map(zirps, z => z.id === zirp.id ? updated : z)));
+		.then(updated => dispatch({ type: 'ZIRPS', value: _.map(zirps, z => z.id === zirp.id ? updated : z) }));
 	}
 
 	const deleteZirp = (zirpId) => {
@@ -45,7 +49,7 @@ const ZirpContainer = ({ serverUrl }) => {
 		})
 		.then(response => {
 			if (response.ok) {
-				setZirps(_.reject(zirps, { id: zirpId}))
+				dispatch({ type: 'ZIRPS', value: _.reject(zirps, { id: zirpId }) });
 			}
 		});
 	};

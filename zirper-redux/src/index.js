@@ -9,10 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const intialState = {
   url: '',
+  zirps: []
 };
 
 const reducerMapper = {
-  'URL': (state, action) => ({ ...state, url: action.value })
+  'URL': (state, action) => ({ ...state, url: action.value }),
+  'ZIRPS': (state, action) => ({ ...state, zirps: action.value })
 };
 
 const reducer = (state = intialState, action) => {
