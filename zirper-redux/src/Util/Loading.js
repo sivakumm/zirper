@@ -7,7 +7,7 @@ const Loading = () => {
     const loading = useSelector(state => state.loading);
 
     return (
-        <div style={{ display: loading ? 'inherit' : 'inherit' }}>
+        <div style={{ display: loading ? 'inherit' : 'none' }}>
             <Col className="text-center">
                 <img src={ process.env.PUBLIC_URL + '/images/loading.gif' } alt="loading screen" height="100px" />
                 <h4 className="text-success"><i>loading</i></h4>
