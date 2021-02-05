@@ -41,7 +41,7 @@ const ZirpCard = ({ originalZirp }) => {
 	}
 
 	const validForm = () => {
-		return zirp.username.length > 2 && zirp.username.length < 16 && zirp.zirp.length > 0;
+		return zirp.username.length > 2 && zirp.username.length < 16 && zirp.zirp.length > 0 && !_.isEqual(zirp, originalZirp);
 	}
 
 	return (
