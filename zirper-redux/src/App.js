@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 import Footer from './Util/Footer';
 import Header from './Util/Header';
 import Loading from './Util/Loading';
@@ -6,23 +8,27 @@ import ZirpContainer from './Zirper/ZirpContainer';
 
 const App = () => {
 
-  const [config, setConfig] = useState(null);
+  const url = useSelector(state => state.url, _.isEqual);
 
-  useEffect(() => {
+  const dispatch = useDispatch();
+
+  const readConfig = () => {
     fetch(`application.json`)
     .then(response => response.json())
-    .then(config => setConfig(config))
+    .then(config => dispatch({ type: 'URL', value: config.url }))
     .catch(console.error);
-  }, []);
+  }
 
-  const renderZirpContainer = (config) => {
-    return config ? <ZirpContainer serverUrl={ config.url } ></ZirpContainer> : <Loading></Loading>;
+  useEffect(readConfig, [dispatch]);
+
+  const renderZirpContainer = (url) => {
+    return url ? <ZirpContainer serverUrl={ url } ></ZirpContainer> : <Loading></Loading>;
   };
 
   return (
     <div className="container">
       <Header></Header>
-      { renderZirpContainer(config) }
+      { renderZirpContainer(url) }
       <Footer></Footer>
     </div>
   );
