@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Card, CardBody, CardText, CardTitle, Col, Input, Row, UncontrolledTooltip } from 'reactstrap';
+import { Button, Card, CardBody, CardText, CardTitle, Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row, UncontrolledTooltip } from 'reactstrap';
 import _ from 'lodash';
 import doFetch from '../Util/Network';
 
@@ -57,7 +57,12 @@ const ZirpCard = ({ originalZirp }) => {
 				<CardTitle>
 					<Row>
 						<Col>
-							<Input className="font-weight-bold" type="text" name="username" plaintext={ !editing } defaultValue={ '@' + zirp.username } onChange={ updateZirp } />
+							<InputGroup>
+								<InputGroupAddon addonType="prepend" style={{ display: editing ? 'inherit' : 'none' }}>
+									<InputGroupText>@</InputGroupText>
+								</InputGroupAddon>
+								<Input className="font-weight-bold" type="text" name="username" plaintext={ !editing } defaultValue={ zirp.username } onChange={ updateZirp } value={ (editing ? '' : '@') + zirp.username }/>
+							</InputGroup>
 						</Col>
 						<Col className="text-right">
 							<Button className="mx-3" color={ editing ? 'success' : 'primary' } size="sm" id={ 'editBtn' + zirp.id } onClick={ editing ? submitUpdate : () => setEditing(!editing) } disabled={ editing && !validForm() }>
