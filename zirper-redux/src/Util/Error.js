@@ -1,4 +1,4 @@
-import { Alert } from 'bootstrap';
+import { Alert } from 'reactstrap';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
