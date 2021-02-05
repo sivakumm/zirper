@@ -54,7 +54,7 @@ const ZirpCard = ({ originalZirp }) => {
 								<InputGroupAddon addonType="prepend" style={{ display: editing ? 'inherit' : 'none' }}>
 									<InputGroupText>@</InputGroupText>
 								</InputGroupAddon>
-								<Input className="font-weight-bold" type="text" name="username" plaintext={ !editing } defaultValue={ zirp.username } onChange={ updateZirp } value={ (editing ? '' : '@') + zirp.username }/>
+								<Input className="font-weight-bold" type="text" name="username" plaintext={ !editing } onChange={ updateZirp } value={ (editing ? '' : '@') + zirp.username }/>
 							</InputGroup>
 						</Col>
 						<Col className="text-right">
@@ -76,7 +76,7 @@ const ZirpCard = ({ originalZirp }) => {
 					</Row>
 				</CardTitle>
 				<CardText>
-					<Input type="textarea" name="zirp" plaintext={ !editing } defaultValue={ zirp.zirp } onChange={ updateZirp } />
+					<Input type="textarea" name="zirp" plaintext={ !editing } value={ zirp.zirp } onChange={ updateZirp } />
 				</CardText>
 				<footer className="blockquote-footer text-right">
 					<small>{ new Date(zirp.date).toLocaleString() }</small>
