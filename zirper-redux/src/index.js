@@ -14,7 +14,10 @@ const intialState = {
 
 const reducerMapper = {
   'URL': (state, action) => ({ ...state, url: action.value }),
-  'ZIRPS': (state, action) => ({ ...state, zirps: action.value })
+  'ZIRPS/ALL': (state, action) => ({ ...state, zirps: action.value }),
+  'ZIRPS/ADD': (state, action) => ({ ...state, zirps: _.concat(state.zirps, action.value) }),
+  'ZIRPS/REPLACE': (state, action) => ({ ...state, zirps: _.map(state.zirps, z => z.id === action.value.id ? action.value : z) }),
+  'ZIRPS/DELETE': (state, action) => ({ ...state, zirps:  _.reject(state.zirps, { id: action.value }) })
 };
 
 const reducer = (state = intialState, action) => {

@@ -14,7 +14,7 @@ const ZirpContainer = () => {
 	const readAll = () => {
 		fetch(`${serverUrl}/zirps`)
 			.then(response => response.json())
-			.then(json => dispatch({ type: 'ZIRPS', value: sortZirps(json) }));
+			.then(json => dispatch({ type: 'ZIRPS/ALL', value: sortZirps(json) }));
 	}
 
 	useEffect(readAll, [serverUrl, dispatch]);
@@ -28,7 +28,7 @@ const ZirpContainer = () => {
 			body: JSON.stringify(zirp)
 		})
 		.then(response => response.json())
-		.then(saved => dispatch({ type: 'ZIRPS', value: sortZirps(_.concat(zirps, saved)) }));
+		.then(saved => dispatch({ type: 'ZIRPS/ADD', value: saved }));
 	};
 
 	const updateZirp = (zirp) => {
@@ -40,7 +40,7 @@ const ZirpContainer = () => {
 			body: JSON.stringify(zirp)
 		})
 		.then(response => response.json())
-		.then(updated => dispatch({ type: 'ZIRPS', value: _.map(zirps, z => z.id === zirp.id ? updated : z) }));
+		.then(updated => dispatch({ type: 'ZIRPS/REPLACE', value: updated }));
 	}
 
 	const deleteZirp = (zirpId) => {
@@ -49,7 +49,7 @@ const ZirpContainer = () => {
 		})
 		.then(response => {
 			if (response.ok) {
-				dispatch({ type: 'ZIRPS', value: _.reject(zirps, { id: zirpId }) });
+				dispatch({ type: 'ZIRPS/DELETE', value: zirpId });
 			}
 		});
 	};
