@@ -3,6 +3,7 @@ import ZirpCardList from './ZirpCardList';
 import ZirpCreateForm from './ZirpCreateForm';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
+import doFetch from '../Util/Network';
 
 const ZirpContainer = () => {
 
@@ -12,46 +13,65 @@ const ZirpContainer = () => {
 	const dispatch = useDispatch();
 
 	const readAll = () => {
-		fetch(`${serverUrl}/zirps`)
-			.then(response => response.json())
-			.then(json => dispatch({ type: 'ZIRPS/ALL', value: sortZirps(json) }));
+		doFetch(
+			`${serverUrl}/zirps`,
+			{ method: 'GET' },
+			data => {
+				dispatch({ type: 'ERROR', value: '' });
+				dispatch({ type: 'ZIRPS/ALL', value: sortZirps(data) });
+			},
+			error => dispatch({ type: 'ERROR', value: error })
+		);
 	}
 
 	useEffect(readAll, [serverUrl, dispatch]);
 
 	const createZirp = (zirp) => {
-		fetch(`${serverUrl}/zirps`, {
-			method: 'POST',
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			}),
-			body: JSON.stringify(zirp)
-		})
-		.then(response => response.json())
-		.then(saved => dispatch({ type: 'ZIRPS/ADD', value: saved }));
+		doFetch(
+			`${serverUrl}/zirps`,
+			{
+				method: 'POST',
+				headers: new Headers({
+					'Content-Type': 'application/json'
+				}),
+				body: JSON.stringify(zirp)
+			},
+			data => {
+				dispatch({ type: 'ERROR', value: '' });
+				dispatch({ type: 'ZIRPS/ADD', value: data });
+			},
+			error => dispatch({ type: 'ERROR', value: error })
+		);
 	};
 
 	const updateZirp = (zirp) => {
-		fetch(`${serverUrl}/zirps/${zirp.id}`, {
-			method: 'PUT',
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			}),
-			body: JSON.stringify(zirp)
-		})
-		.then(response => response.json())
-		.then(updated => dispatch({ type: 'ZIRPS/REPLACE', value: updated }));
+		doFetch(
+			`${serverUrl}/zirps/${zirp.id}`,
+			{
+				method: 'PUT',
+				headers: new Headers({
+					'Content-Type': 'application/json'
+				}),
+				body: JSON.stringify(zirp)
+			},
+			data => {
+				dispatch({ type: 'ERROR', value: '' });
+				dispatch({ type: 'ZIRPS/REPLACE', value: data });
+			},
+			error => dispatch({ type: 'ERROR', value: error })
+		);
 	}
 
 	const deleteZirp = (zirpId) => {
-		fetch(`${serverUrl}/zirps/${zirpId}`, {
-			method: 'DELETE'
-		})
-		.then(response => {
-			if (response.ok) {
+		doFetch(
+			`${serverUrl}/zirps/${zirpId}`,
+			{ method: 'DELETE' },
+			() => {
+				dispatch({ type: 'ERROR', value: '' });
 				dispatch({ type: 'ZIRPS/DELETE', value: zirpId });
-			}
-		});
+			},
+			error => dispatch({ type: 'ERROR', value: error })
+		);
 	};
 
 	const sortZirps = (zirpList) => {
