@@ -1,9 +1,14 @@
 import { Alert } from 'bootstrap';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import _ from 'lodash';
 
-const Error = ({ message }) => {
+const Error = () => {
+
+    const message = useSelector(state => state.error, _.isEqual);
+
     return (
-        <div>
+        <div style={{ display: message.length > 0 ? 'inherit' : 'none' }}>
             <Alert color="danger"><b>ERROR: </b>{ message }</Alert>
         </div>
     );
