@@ -1,20 +1,14 @@
 
-const doFetch = (url, options, dataFn, errorFn) => {
+const doFetch = async (url, options, dataFn, errorFn) => {
     try {
-        fetch(url, options)
-        .then(response => {
-            if (response.ok) {
-                if (response.status !== 204){
-                    return response.json();
-                }
-            } else {
-                errorFn(response.statusText);
+        const response = await fetch(url, options)
+        if (response.ok) {
+            if (response.status !== 204){
+                dataFn(await response.json());
             }
-        })
-        .then(data => {
-            dataFn(data);
-        })
-        .catch(errorFn);
+        } else {
+            throw new Error(`${response.status}: ${response.statusText}`);
+        }
     } catch (error) {
         errorFn(error.message);
     }

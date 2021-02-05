@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import Footer from './Util/Footer';
 import Header from './Util/Header';
+import Error from './Util/Error';
 import Loading from './Util/Loading';
 import ZirpContainer from './Zirper/ZirpContainer';
 
@@ -28,6 +29,7 @@ const App = () => {
   return (
     <div className="container">
       <Header></Header>
+      <Error></Error>
       { renderZirpContainer(url) }
       <Footer></Footer>
     </div>
