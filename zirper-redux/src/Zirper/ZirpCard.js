@@ -22,16 +22,11 @@ const ZirpCard = ({ originalZirp }) => {
 			`${serverUrl}/zirps/${zirp.id}`,
 			{
 				method: 'PUT',
-				headers: new Headers({
-					'Content-Type': 'application/json'
-				}),
 				body: JSON.stringify(zirp)
 			},
-			data => {
-				dispatch({ type: 'ERROR', value: '' });
-				dispatch({ type: 'ZIRPS/REPLACE', value: data });
-			},
-			error => dispatch({ type: 'ERROR', value: error })
+			'ZIRPS/REPLACE',
+			'Updating zirp',
+			dispatch
 		);
 	}
 
@@ -39,11 +34,9 @@ const ZirpCard = ({ originalZirp }) => {
 		doFetch(
 			`${serverUrl}/zirps/${zirpId}`,
 			{ method: 'DELETE' },
-			() => {
-				dispatch({ type: 'ERROR', value: '' });
-				dispatch({ type: 'ZIRPS/DELETE', value: zirpId });
-			},
-			error => dispatch({ type: 'ERROR', value: error })
+			'ZIRPS/DELETE',
+			'Removing zirp',
+			dispatch
 		);
 	}
 

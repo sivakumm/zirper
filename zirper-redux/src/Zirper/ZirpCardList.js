@@ -15,11 +15,9 @@ const ZirpCardList = () => {
 		doFetch(
 			`${serverUrl}/zirps`,
 			{ method: 'GET' },
-			data => {
-				dispatch({ type: 'ERROR', value: '' });
-				dispatch({ type: 'ZIRPS/ALL', value: data });
-			},
-			error => dispatch({ type: 'ERROR', value: error })
+			'ZIRPS/ALL',
+			'Loading all zirps from server',
+			dispatch
 		);
 	}
 

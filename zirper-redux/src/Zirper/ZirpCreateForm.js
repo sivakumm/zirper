@@ -20,16 +20,11 @@ const ZirpCreateForm = () => {
 			`${serverUrl}/zirps`,
 			{
 				method: 'POST',
-				headers: new Headers({
-					'Content-Type': 'application/json'
-				}),
 				body: JSON.stringify(zirp)
 			},
-			data => {
-				dispatch({ type: 'ERROR', value: '' });
-				dispatch({ type: 'ZIRPS/ADD', value: data });
-			},
-			error => dispatch({ type: 'ERROR', value: error })
+			'ZIRPS/ADD',
+			'Creating a new zirp',
+			dispatch
 		);
 		setZirp({ username: '', zirp: '' });
 	};

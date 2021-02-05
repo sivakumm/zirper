@@ -1,16 +1,18 @@
 
-const doFetch = async (url, options, dataFn, errorFn) => {
+const doFetch = async (url, options, actionType, errorText, dispatch) => {
     try {
-        const response = await fetch(url, options)
+        const response = await fetch(url, { ...options, headers: { 'Content-Type': 'application/json' } })
         if (response.ok) {
+            dispatch({ type: 'ERROR', value: '' });
             if (response.status !== 204){
-                dataFn(await response.json());
+				dispatch({ type: actionType, value: await response.json() });
             }
         } else {
-            throw new Error(`${response.status}: ${response.statusText}`);
+            throw new Error(`${errorText} (${response.status} - ${response.statusText})`);
         }
     } catch (error) {
-        errorFn(error.message);
+        console.error(error);
+        dispatch({ type: 'ERROR', value: error.message });
     }
 };
 
