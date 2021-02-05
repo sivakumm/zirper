@@ -18,7 +18,7 @@ const ZirpContainer = () => {
 			{ method: 'GET' },
 			data => {
 				dispatch({ type: 'ERROR', value: '' });
-				dispatch({ type: 'ZIRPS/ALL', value: sortZirps(data) });
+				dispatch({ type: 'ZIRPS/ALL', value: data });
 			},
 			error => dispatch({ type: 'ERROR', value: error })
 		);
@@ -73,10 +73,6 @@ const ZirpContainer = () => {
 			error => dispatch({ type: 'ERROR', value: error })
 		);
 	};
-
-	const sortZirps = (zirpList) => {
-		return _.sortBy(zirpList, (zirp) => new Date(zirp.date)).reverse();
-	}
 
 	return (
 		<div>

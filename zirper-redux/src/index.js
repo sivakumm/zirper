@@ -16,10 +16,10 @@ const intialState = {
 const reducerMapper = {
   'URL': (state, action) => ({ ...state, url: action.value }),
   'ERROR': (state, action) => ({ ...state, error: action.value }),
-  'ZIRPS/ALL': (state, action) => ({ ...state, zirps: action.value }),
-  'ZIRPS/ADD': (state, action) => ({ ...state, zirps: _.concat(state.zirps, action.value) }),
-  'ZIRPS/REPLACE': (state, action) => ({ ...state, zirps: _.map(state.zirps, z => z.id === action.value.id ? action.value : z) }),
-  'ZIRPS/DELETE': (state, action) => ({ ...state, zirps:  _.reject(state.zirps, { id: action.value }) })
+  'ZIRPS/ALL': (state, action) => ({ ...state, zirps: sortZirps(action.value) }),
+  'ZIRPS/ADD': (state, action) => ({ ...state, zirps: sortZirps(_.concat(state.zirps, action.value)) }),
+  'ZIRPS/REPLACE': (state, action) => ({ ...state, zirps: sortZirps(_.map(state.zirps, z => z.id === action.value.id ? action.value : z)) }),
+  'ZIRPS/DELETE': (state, action) => ({ ...state, zirps: sortZirps( _.reject(state.zirps, { id: action.value })) })
 };
 
 const reducer = (state = intialState, action) => {
@@ -27,6 +27,10 @@ const reducer = (state = intialState, action) => {
 };
 
 const store = createStore(reducer, applyMiddleware(thunk));
+
+const sortZirps = (zirpList) => {
+  return _.sortBy(zirpList, (zirp) => new Date(zirp.date)).reverse();
+}
 
 ReactDOM.render(
   <Provider store={ store }>
