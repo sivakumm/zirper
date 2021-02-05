@@ -10,12 +10,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const intialState = {
   url: '',
   error: '',
+  loading: false,
   zirps: []
 };
 
 const reducerMapper = {
   'URL': (state, action) => ({ ...state, url: action.value }),
   'ERROR': (state, action) => ({ ...state, error: action.value }),
+  'LOADING': (state, action) => ({ ...state, loading: action.value }),
   'ZIRPS/ALL': (state, action) => ({ ...state, zirps: sortZirps(action.value) }),
   'ZIRPS/ADD': (state, action) => ({ ...state, zirps: sortZirps(_.concat(state.zirps, action.value)) }),
   'ZIRPS/REPLACE': (state, action) => ({ ...state, zirps: sortZirps(_.map(state.zirps, z => z.id === action.value.id ? action.value : z)) }),

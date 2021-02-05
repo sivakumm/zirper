@@ -23,13 +23,14 @@ const App = () => {
   useEffect(readConfig, [dispatch]);
 
   const renderZirpContainer = (url) => {
-    return url ? <ZirpContainer /> : <Loading></Loading>;
+    return url ? <ZirpContainer /> : null;
   };
 
   return (
     <div className="container">
       <Header></Header>
       <Error></Error>
+      <Loading></Loading>
       { renderZirpContainer(url) }
       <Footer></Footer>
     </div>
